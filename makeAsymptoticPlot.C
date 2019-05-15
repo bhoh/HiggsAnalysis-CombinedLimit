@@ -142,6 +142,7 @@ void makeAsymptoticPlot() {
   g_cls_exp_pm2->GetHistogram()->GetYaxis()->SetLabelSize(0.03);
   g_cls_exp_pm2->GetHistogram()->GetYaxis()->SetTitleOffset(1.5);
   //  g_cls_exp_pm2->GetHistogram()->GetYaxis()->CenterTitle(true);
+  //g_cls_exp_pm2->GetHistogram()->GetYaxis()->SetRangeUser(0.0, 0.01);
   g_cls_exp_pm2->GetHistogram()->GetYaxis()->SetRangeUser(0.0, 0.01);
   g_cls_exp_pm2->GetHistogram()->GetXaxis()->SetRangeUser(90.0, 150.0);
   g_cls_exp_pm2->GetHistogram()->SetXTitle("m_{H^{+}} (GeV)");
@@ -233,7 +234,7 @@ void makeAsymptoticPlot() {
   //  latex->DrawLatex(0.57, 0.83,"Combined e+#mu channels");
   //  latex->DrawLatex(0.18, 0.92,"Combined e+#mu channels, #sigma(stat.) only");
   //  latex->DrawLatex(0.18, 0.92,"e+jets, #geq 2 b-tagged events, #sigma(stat.) only");
-  latex->DrawLatex(0.55, 0.85,"#mu+jets, #geq 2 b-tagged events");
+  latex->DrawLatex(0.5, 0.85,"#mu/e+jets, #geq 2 b-tagged events");
   //  latex->DrawLatex(0.18, 0.92,"e+jets, 2 b-tagged events");
   //latex->DrawLatex(0.18, 0.92,"e+jets, 2 b-tagged events, #sigma(stat.) only");
     //latex->DrawLatex(0.18, 0.92,"#mu+jets, #geq 2 b-tagged events, #sigma(stat.) only");
@@ -299,11 +300,11 @@ void makeAsymptoticPlot() {
   leg3->SetFillColor(0);
   leg3->SetBorderSize(0);
   leg3->SetTextFont(42);
-  leg3->SetHeader("Upper limit @95% CL with no syst.");
-  leg3->AddEntry(g_cls_exp, "Expected Limit, mva cut(0.35,0.40)","l");
+  leg3->SetHeader("Upper limit @95% CL");
+  leg3->AddEntry(g_cls_exp, "Expected Limit","l");
   leg3->AddEntry(g_cls_exp_pm1, "Expected #pm 1#sigma","f");
   leg3->AddEntry(g_cls_exp_pm2, "Expected #pm 2#sigma","f");
-  leg3->AddEntry(g_cls_exp2, "Expected Limit, mva cut(0.35,0.60)","l");
+  leg3->AddEntry(g_cls_exp2, "Expected Limit, 8TeV","l");
   //leg3->AddEntry(g_cls_exp_8tev, "Expected Limit @8TeV, 19.7fb^{-1}","l");
   leg3->Draw();
 
@@ -316,7 +317,7 @@ void makeAsymptoticPlot() {
   latex->SetTextSize(0.04);
   latex->DrawLatex(0.13,0.78,"#it{Preliminary}");
   latex->DrawLatex(0.7, 0.92,"35.9 fb^{-1} (13 TeV)");
-  latex->DrawLatex(0.55, 0.85,"#mu+jets, #geq 2 b-tagged events");
+  latex->DrawLatex(0.4, 0.85,"#mu/e+jets, #geq 2 b-tagged events, stat. only");
 
 }// makeAsymptoticPlot()
 
@@ -334,7 +335,7 @@ void readAtlas() {
   for(int i=0; i<nmass; ++i) {
     const int mass = mass_points[i];
 
-    ifstream ifile(Form("combine/mu_%i_0.35_0.40_stat.out",mass));
+    ifstream ifile(Form("combine/Comb_%i_0.00_0.00_stat_only.out",mass));
 
     string temp;
     cout << "starting on file " << Form("res_stat_%i.txt",mass) << endl;
@@ -378,8 +379,7 @@ void readAtlas() {
   for(int i=0; i<nmass; ++i) {
 	  const int mass = mass_points[i];
 
-	  ifstream ifile(Form("combine/mu_%i_0.35_0.60_stat.out",mass));
-	  
+	  ifstream ifile(Form("combine/Comb_8TeV_%i_stat_only.out",mass));
 	  string temp;
 	  cout << "starting on file " << Form("res_ctag_stat_%i.txt",mass) << endl;
 	  while(ifile >> temp && !ifile.eof()) {
